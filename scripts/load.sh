@@ -10,9 +10,9 @@ fi
 if [ "$(echo $load | sed 's/[^0-9].*//')" -gt "8" ]
 then
     echo "<span color='red'>$load</span>"
-elif [ "$(echo $load | sed 's/[^0-9].*//')" -lt "4" ]
+elif [ "$(echo $load | sed 's/[^0-9].*//')" -lt "2" ]
 then
-    echo
+    echo "<span color'green'>$load</span>"
 else
     echo "<span color='yellow'>$load</span>"
 fi

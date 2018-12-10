@@ -16,39 +16,41 @@ fi
 # 8.  Read lines and echo formatted pieces.
 # 9.  Put pieces together.
 # 10. Put newline at the end.
-pactl list sinks | grep -e '^\s*State' -e '^\s*Mute' -e '^\s*Volume' -e '^\s*alsa.name' |
-sed 's/^\s*State: //; s/^\s*Mute: //; s/.*[^0-9]\([0-9]\+\)%.*/\1/; s/^\s*alsa.name = "\(.*\)"/\1;/; s/$/\t/' |
-tr -d '\n' | sed 's/;\t/\n/g' | sed 's/USB\ Audio/aaUSB/; s/HDMI 1/HDMI/' | sort -k4,4 | 
-while read -r state muted volume name
-do
-	if [ $name == aaUSB ]
-	then
-		if [ $volume -gt 100 ]
-		then
-			echo "<span color='red'>$volume%</span>"
-		else
-			echo "$volume%"
-		fi
-		if [ $muted == yes ]
-		then
-			echo ' MUTED'
-		fi
-	else
+#pactl list sinks | grep -e '^\s*State' -e '^\s*Mute' -e '^\s*Volume' -e '^\s*alsa.name' |
+#sed 's/^\s*State: //; s/^\s*Mute: //; s/.*[^0-9]\([0-9]\+\)%.*/\1/; s/^\s*alsa.name = "\(.*\)"/\1;/; s/$/\t/' |
+#tr -d '\n' | sed 's/;\t/\n/g' | sed 's/USB\ Audio/aaUSB/; s/HDMI 1/HDMI/' | sort -k4,4 | 
+#while read -r state muted volume name
+#do
+#	if [ $name == aaUSB ]
+#	then
+#		if [ $volume -gt 100 ]
+#		then
+#			echo "<span color='red'>$volume%</span>"
+#		else
+#			echo "$volume%"
+#		fi
+#		if [ $muted == yes ]
+#		then
+#			echo ' MUTED'
+#		fi
+#	else
 #		if [ $state == RUNNING ]
 #		then
 #			echo " ($name"
-			if [ $volume -gt 100 ]
-			then
-				echo " <span color='red'>$volume%</span>"
-			else
-				echo " $volume%"
-			fi
-			if [ $muted == yes ]
-			then
-				echo ' MUTED'
-			fi
+#			if [ $volume -gt 100 ]
+#			then
+#				echo " <span color='red'>$volume%</span>"
+#			else
+#				echo " $volume%"
+#			fi
+#			if [ $muted == yes ]
+#			then
+#				echo ' MUTED'
+#			fi
 #			echo ')'
 #		fi
-	fi
-done |
-tr -d '\n' | sed 's/$/\n/'
+#	fi
+#done |
+#tr -d '\n' | sed 's/$/\n/'
+
+amixer get Master | grep -o "\[.*\]" | tr -d "\[\]"  

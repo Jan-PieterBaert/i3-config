@@ -25,6 +25,7 @@ font pango:monospace 7
 
 # set super mod
 set $mod Mod4
+set $mod2 Mod1
 
 # use these keys for focus, movement, and resize directions when reaching for
 # the arrows is not convenient
@@ -37,13 +38,15 @@ set $right semicolon
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec uxterm
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+# dmenu with some cool colors
+bindsym $mod+d exec "dmenu_run -nf '#BBBBBB' -nb '#222222' -sb '#6F7700' -sf '#EEEEEE' -fn 'monospace-10' -p 'dmenu prompt &gt;'"
+#bindsym $mod+d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -97,7 +100,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+z focus child
 
 # move the currently focused window to the scratchpad
 bindsym $mod+Shift+minus move scratchpad
@@ -108,17 +111,26 @@ bindsym $mod+minus scratchpad show
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
+set $ws1 "1: term"
+set $ws2 "2: soc"
+set $ws3 "3: vid"
+set $ws4 "4: fcp"
+set $ws5 "5: ad2"
+set $ws6 "6: sys"
+set $ws7 "7: sta"
+set $ws8 "8: cne"
 set $ws9 "9"
-set $ws10 "10"
-
+set $ws10 "10: git"
+set $ws11 "11"
+set $ws12 "12ul"
+set $ws13 "13"
+set $ws14 "14"
+set $ws15 "15"
+set $ws16 "16"
+set $ws17 "17"
+set $ws18 "18"
+set $ws19 "19"
+set $ws20 "20"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -131,6 +143,16 @@ bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
+bindsym $mod2+1 workspace $ws11
+bindsym $mod2+2 workspace $ws12
+bindsym $mod2+3 workspace $ws13
+bindsym $mod2+4 workspace $ws14
+bindsym $mod2+5 workspace $ws15
+bindsym $mod2+6 workspace $ws16
+bindsym $mod2+7 workspace $ws17
+bindsym $mod2+8 workspace $ws18
+bindsym $mod2+9 workspace $ws19
+bindsym $mod2+0 workspace $ws20
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -143,6 +165,16 @@ bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
+bindsym $mod2+Shift+1 move container to workspace $ws11
+bindsym $mod2+Shift+2 move container to workspace $ws12
+bindsym $mod2+Shift+3 move container to workspace $ws13
+bindsym $mod2+Shift+4 move container to workspace $ws14
+bindsym $mod2+Shift+5 move container to workspace $ws15
+bindsym $mod2+Shift+6 move container to workspace $ws16
+bindsym $mod2+Shift+7 move container to workspace $ws17
+bindsym $mod2+Shift+8 move container to workspace $ws18
+bindsym $mod2+Shift+9 move container to workspace $ws19
+bindsym $mod2+Shift+0 move container to workspace $ws20
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -159,16 +191,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym $left       resize shrink width 10 px or 10 ppt
-        bindsym $down       resize grow height 10 px or 10 ppt
-        bindsym $up         resize shrink height 10 px or 10 ppt
-        bindsym $right      resize grow width 10 px or 10 ppt
+        bindsym $left       resize shrink width 5 px or 5 ppt
+        bindsym $down       resize grow height 5 px or 5 ppt
+        bindsym $up         resize shrink height 5 px or 5 ppt
+        bindsym $right      resize grow width 5 px or 5 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left        resize shrink width 10 px or 10 ppt
-        bindsym Down        resize grow height 10 px or 10 ppt
-        bindsym Up          resize shrink height 10 px or 10 ppt
-        bindsym Right       resize grow width 10 px or 10 ppt
+        bindsym Left        resize shrink width 5 px or 5 ppt
+        bindsym Down        resize grow height 5 px or 5 ppt
+        bindsym Up          resize shrink height 5 px or 5 ppt
+        bindsym Right       resize grow width 5 px or 5 ppt
 
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
@@ -179,63 +211,126 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Mode to logout, reboot or shutdown
-mode "[l]ogout / [h]ibernate / [r]eboot / [s]hutdown" {
+mode "[l]ogout / [h]ibernate / [r]eboot / [s]hutdown / suspend-[t]hen-hibernate / sus[p]end" {
 	bindsym l exit
+	bindsym t exec systemctl suspend-then-hibernate
 	bindsym h exec hibernate_lock
 	bindsym r exec reboot
 	bindsym s exec shutdown now
+	bindsym p exec systemctl suspend
 	bindsym Escape mode "default"
 }
-bindsym $mod+x mode "[l]ogout / [h]ibernate / [r]eboot / [s]hutdown"
+bindsym $mod+x mode "[l]ogout / [h]ibernate / [r]eboot / [s]hutdown / suspend-[t]hen-hibernate / sus[p]end"
 
+mode "[c]hromium | [r]ambox | [g]oogle-chrome | [a]tom | [r]estart i3" {
+	bindsym c exec chromium
+	bindsym r exec rambox
+	bindsym g exec google-chrome-stable
+	bindsym a exec atom
+	bindsym r exec "i3-msg -q restart"
+	bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+b mode "[c]hromium | [r]ambox | [g]oogle-chrome | [a]tom | [r]estart i3"  
+
+#music play mode
+mode "Music playing" {
+	bindsym p exec paplay /home/jan-pieter/Music/DeSlimsteMens1.ogg
+	bindsym m exec killall paplay
+	bindsym Escape mode "default"
+}
+bindsym $mod+Pause mode "Music playing"
+
+bindsym $mod+backslash bar mode toggle
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+	mode dock
+	hidden_state hide
+	modifier $mod
 #	output eDP1
 	position top
 	status_command i3blocks -c ~/.config/i3/i3blocks.conf
 }
 
-#bar{
-#	output DP1
-#	output HDMI1
-#	output HDMI2
-#	position top
-#	status_command i3blocks -c ~/.config/i3/i3blocks2.conf
-#}
+#Set some cool colors for i3
+# class                 border  bground text    indicator child_border
+client.focused          #004F00 #000088 #FFFFFF #00004F   #00FF00
+client.focused_inactive #333333 #5F676A #FFFFFF #484E50   #5F676A
+client.unfocused        #333333 #222222 #888888 #292D2E   #222222
+client.urgent           #2F343A #900000 #FFFFFF #900000   #900000
+client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
+
+client.background       #FFFFFF
+
+bar {
+  colors {
+    background #000000
+    statusline #FFFFFF
+    separator  #666666
+
+    focused_workspace  #00FF00 #000088 #FFFFFF
+    active_workspace   #333333 #000000 #FFFFFF
+    inactive_workspace #333333 #555555 #FFFFFF
+    urgent_workspace   #2F343A #900000 #FFFFFF
+    binding_mode       #2F343A #900000 #FFFFFF
+
+    #focused_workspace  #4C7899 #285577 #FFFFFF
+    #active_workspace   #333333 #222222 #FFFFFF
+    #inactive_workspace #333333 #222222 #888888
+    #urgent_workspace   #2F343A #900000 #FFFFFF
+    #binding_mode       #2F343A #900000 #FFFFFF
+  }
+}
+
+#some gap modifications
+bindsym $mod+$mod2+b border normal
+bindsym $mod+$mod2+n border pixel 1
+
+for_window [class="^.*"] border pixel 1
+#gaps inner 0
+#smart_gaps on
+new_window normal 0
+new_float normal 10
+hide_edge_borders smart
 
 #floating windows
 for_window [class="GParted"] floating enable
 for_window [class="Pavucontrol"] floating enable
+for_window [class="Arandr"] floating enable
+for_window [class="Shutter"] floating enable
+
+#workspace assignment
+assign [class="Rambox"] $ws2
 
 #start programs, I decide
-bindsym $mod+Shift+z exec fancy_lock
-bindsym $mod+Shift+h exec hibernate_lock
-bindsym $mod+Shift+b exec chromium
+bindcode 78 exec fancy_lock
+bindcode $mod+107 exec "scrot /tmp/screenshot.png && /fast_files/git_repos/custum_scripts/copy_to_clipboard /tmp/screenshot.png"
 
 #workspace mods
 bindsym --whole-window $mod+Tab workspace next_on_output
 bindsym --whole-window $mod+Shift+Tab workspace prev_on_output
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec "/home/jan-pieter/.config/i3/scripts/changebacklight.sh up" 
+# increase screen brightness
+bindsym XF86MonBrightnessDown exec "/home/jan-pieter/.config/i3/scripts/changebacklight.sh down" 
+# decrease screen brightness
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
+
+bindsym $mod+Shift+a exec --no-startup-id "xrandr --auto;arandr"
 
 # Set wallpaper
 exec_always --no-startup-id "feh --bg-scale /home/jan-pieter/custum_scripts/lockscreen/"
 # Keyboard layout
-exec --no-startup-id setxkbmap -layout us -variant euro -model pc105 &
+#exec --no-startup-id setxkbmap -layout us -variant euro -model pc105 &
 # Num lock on
 exec --no-startup-id numlockx &
-# Nm-applet
-#exec --no-startup-id nm-applet &
-# wpa_gui
-#exec --no-startup-id wpa_gui &
 # kill the old xss-lock and start a new one
 exec_always --no-startup-id "killall xss-lock; xss-lock fancy_lock"
-
+#start flux
+exec --no-startup-id fluxgui &
