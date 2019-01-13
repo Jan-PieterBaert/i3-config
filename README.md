@@ -6,8 +6,11 @@ i3-config-folder
 - [x] battery
 - [x] cpu-load
 - [x] disk
+- [x] playerctl information
 - [x] ram usage
 - [x] swap usage
 - [x] uptime
 - [x] volume
+- [x] weather (provided by https://wttr.in)
 - [x] wifi
+
