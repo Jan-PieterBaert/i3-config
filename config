@@ -31,7 +31,7 @@ set $mod2 Mod1
 # the arrows is not convenient
 set $up k
 set $down j
-set $left n
+set $left h
 set $right l
 
 # use Mouse+$mod to drag floating windows to their wanted position
@@ -84,7 +84,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+g split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -125,7 +125,7 @@ set $ws1 "1|⌨"
 set $ws2 "2|♫"
 set $ws3 "3|📺"
 set $ws4 "4|fcp"
-set $ws5 "5|ad2"
+set $ws5 "5"
 set $ws6 "6|sys"
 set $ws7 "7"
 set $ws8 "8|cne"
@@ -230,9 +230,6 @@ mode "[c]hromium | [r]ambox | [g]oogle-chrome | [a]tom | [r]estart i3 | [q]utebr
 }
 bindsym $mod+Shift+b mode "[c]hromium | [r]ambox | [g]oogle-chrome | [a]tom | [r]estart i3 | [q]utebrowser" 
 
-# Make it possible to toggle the bar to be hidden
-bindsym $mod+backslash bar mode toggle
-
 #Set some cool colors for i3
 # class                 border  bground text    indicator child_border
 client.focused          #004F00 #000088 #FFFFFF #00004F   #00FF00
@@ -264,6 +261,9 @@ bar {
     	binding_mode       #2F343A #900000 #FFFFFF
   }
 }
+
+# Make it possible to toggle the bar to be hidden
+bindsym $mod+backslash bar mode toggle
 
 #Using below keybindings we can give a certain windw a bar or not 
 bindsym $mod+$mod2+b border normal
@@ -304,7 +304,7 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id /home/jan-pieter/custum_script
 bindsym XF86AudioLowerVolume exec --no-startup-id /home/jan-pieter/custum_scripts/changeVolume -2 #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id /home/jan-pieter/custum_scripts/changeVolume # mute sound by dailing back the volume to 0
 
-bindsym $mod+Shift+h exec /fast_files/git_repos/custum_scripts/hibernate_lock
+bindsym $mod+$mod2+h exec /fast_files/git_repos/custum_scripts/hibernate_lock
 
 # Used to configure my screens layout when a new one connects
 bindsym $mod+Shift+a exec --no-startup-id "xrandr --auto;arandr"
