@@ -1,3 +1,4 @@
+**This repository is depricated and moved to https://github.com/Jan-PieterBaert/config-files/i3**
 # i3-config
 i3-config-folder
 
